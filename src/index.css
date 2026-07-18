@@ -1,0 +1,643 @@
+/* ─── PALETA Y VARIABLES ─────────────────────────── */
+:root {
+  --primary: #1d4ed8;
+  --primary-dark: #142d63;
+  --primary-soft: rgba(29, 78, 216, 0.12);
+  --gradient-primary: linear-gradient(135deg, #142d63 0%, #2563eb 100%);
+  --bg: #eef2f8;
+  --surface: #ffffff;
+  --text: #243244;
+  --text-suave: #55657a;
+  --borde: #dbe3ef;
+  --sombra: 0 2px 10px rgba(20, 45, 99, 0.08);
+  --sombra-hover: 0 10px 24px rgba(20, 45, 99, 0.16);
+  --radio: 12px;
+}
+
+/* Reseteo básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(37, 99, 235, 0.07), transparent 40%),
+    radial-gradient(circle at 90% 100%, rgba(6, 182, 212, 0.06), transparent 45%);
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+::selection {
+  background: var(--primary);
+  color: white;
+}
+
+/* ─── ANIMACIONES ────────────────────────────────── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─── NAVBAR ─────────────────────────────────────── */
+.navbar {
+  background: #ffffff;
+  height: 64px;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--borde);
+  box-shadow: 0 2px 10px rgba(20, 45, 99, 0.06);
+}
+
+.navbar-title {
+  color: var(--primary-dark);
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+}
+
+.navbar-subtitle {
+  color: var(--text-suave);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.logout-btn {
+  background-color: #ffffff;
+  border: 1px solid var(--borde);
+  color: var(--primary-dark);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-height: 38px;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
+}
+
+.logout-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: white;
+}
+
+/* ─── BOTONES E INPUTS (interactividad global) ───── */
+button {
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease,
+    background-color 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+input,
+select,
+textarea {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+input:hover:not(:focus),
+select:hover:not(:focus),
+textarea:hover:not(:focus) {
+  border-color: #b6c5e2 !important;
+}
+
+/* ─── CONTENIDO PRINCIPAL ────────────────────────── */
+.content {
+  padding: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  animation: fadeUp 0.4s ease both;
+}
+
+.section-title {
+  color: var(--primary-dark);
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title::before {
+  content: '';
+  width: 5px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--gradient-primary);
+  flex-shrink: 0;
+}
+
+/* ─── GRID DE TARJETAS ───────────────────────────── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+/* ─── TARJETA DE RESUMEN ─────────────────────────── */
+.card {
+  background-color: var(--surface);
+  border-radius: var(--radio);
+  padding: 20px 16px;
+  box-shadow: var(--sombra);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sombra-hover);
+}
+
+.card:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+.card-titulo {
+  font-size: 13px;
+  color: var(--text-suave);
+  margin-bottom: 8px;
+}
+
+.card-valor {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.card-sub {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 4px;
+  transition: color 0.2s ease;
+}
+
+.card:hover .card-sub {
+  color: var(--primary);
+}
+
+/* ─── BIENVENIDA / REGISTRO (terreno) ────────────── */
+.reg-hero {
+  background: var(--gradient-primary);
+  border-radius: 16px;
+  padding: 28px 30px;
+  color: #fff;
+  margin-bottom: 26px;
+  box-shadow: var(--sombra);
+  position: relative;
+  overflow: hidden;
+}
+
+.reg-hero::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -30px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.reg-hero h2 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.reg-hero p {
+  font-size: 15px;
+  opacity: 0.92;
+  margin-top: 6px;
+}
+
+/* Grid de tarjetas de registro */
+.reg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 900px) {
+  .reg-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .reg-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.reg-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  padding: 22px 20px;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 168px;
+  box-shadow: var(--sombra);
+  transition: transform 0.22s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* Franja de color superior (usa --acento de cada tarjeta) */
+.reg-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--acento);
+}
+
+.reg-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-hover);
+  border-color: transparent;
+}
+
+.reg-card:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+.reg-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--acento-soft);
+  color: var(--acento);
+  transition: transform 0.22s ease;
+}
+
+.reg-card:hover .reg-icon {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+.reg-titulo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--acento);
+}
+
+.reg-desc {
+  font-size: 12.5px;
+  color: var(--text-suave);
+  line-height: 1.5;
+}
+
+.reg-cta {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--acento);
+}
+
+.reg-cta svg {
+  transition: transform 0.2s ease;
+}
+
+.reg-card:hover .reg-cta svg {
+  transform: translateX(4px);
+}
+
+/* ─── TABLA DE ACTIVIDAD RECIENTE ────────────────── */
+.tabla-reciente {
+  background-color: var(--surface);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+
+.fila-reciente {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid #eef1f7;
+  font-size: 13px;
+  color: #334155;
+  gap: 12px;
+  transition: background-color 0.15s ease;
+}
+
+.fila-reciente:hover {
+  background-color: #f3f7ff;
+}
+
+.sin-registros {
+  color: #64748b;
+  padding: 20px;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* ─── BARRA DE FILTROS ───────────────────────────── */
+.filtros-bar {
+  transition: box-shadow 0.25s ease;
+}
+
+.filtros-bar:hover {
+  box-shadow: var(--sombra-hover);
+}
+
+/* ─── PANTALLA DE CARGA ──────────────────────────── */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 100vh;
+  color: var(--text-suave);
+}
+
+.loading::before {
+  content: '';
+  width: 42px;
+  height: 42px;
+  border: 4px solid #d6e0f2;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c3cfe2;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* ─── IMPRESION ──────────────────────────────────── */
+.solo-print {
+  display: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .solo-print {
+    display: block !important;
+  }
+
+  body {
+    background-color: white;
+    background-image: none;
+  }
+
+  .navbar {
+    position: static;
+  }
+
+  .content {
+    padding: 8px;
+    max-width: 100%;
+    animation: none;
+  }
+
+  .tabla-reciente {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .fila-reciente {
+    break-inside: avoid;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .section-title {
+    margin-top: 12px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVIDAD — TABLETS Y MÓVILES
+═══════════════════════════════════════════════════ */
+
+/* ─── TABLET (≤ 900px) ───────────────────────────── */
+@media (max-width: 900px) {
+  .content {
+    padding: 20px;
+    max-width: 100%;
+  }
+}
+
+/* ─── MÓVIL GRANDE (≤ 700px) ─────────────────────── */
+@media (max-width: 700px) {
+  /* Tabla con scroll horizontal en lugar de colapsar */
+  .tabla-reciente {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .fila-reciente {
+    min-width: 480px;
+  }
+
+  /* Barra de filtros: pasa a columna apilada */
+  .filtros-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 12px 14px !important;
+    gap: 8px !important;
+  }
+
+  .filtros-bar > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  .filtros-bar input[type="date"] {
+    flex: 1;
+    min-height: 44px;
+    font-size: 16px !important;
+    padding: 10px 12px !important;
+  }
+
+  .filtros-bar button {
+    width: 100% !important;
+    min-height: 44px !important;
+    margin-left: 0 !important;
+    font-size: 14px !important;
+    padding: 12px !important;
+  }
+
+  .filtros-bar span {
+    font-size: 13px;
+  }
+}
+
+/* ─── MÓVIL (≤ 560px) ────────────────────────────── */
+@media (max-width: 560px) {
+  /* Navbar más compacto */
+  .navbar {
+    padding: 0 14px;
+  }
+
+  .navbar-title {
+    font-size: 15px;
+  }
+
+  .navbar-subtitle {
+    font-size: 11px;
+  }
+
+  .logout-btn {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+
+  /* Content más estrecho */
+  .content {
+    padding: 14px;
+  }
+
+  /* Cards más compactas */
+  .card {
+    padding: 16px 12px;
+  }
+
+  .card-valor {
+    font-size: 28px;
+  }
+
+  /* Evitar zoom automático en iOS (font-size mínimo 16px) */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Botones táctiles en formularios de terreno */
+  button[type="submit"] {
+    min-height: 48px;
+    font-size: 15px !important;
+  }
+
+  /* Formularios de terreno: padding reducido */
+  .form-terreno {
+    padding: 16px !important;
+  }
+
+  .section-title {
+    margin-top: 16px;
+    font-size: 15px;
+  }
+}
+
+/* ─── MÓVIL MUY PEQUEÑO (≤ 380px) ───────────────── */
+@media (max-width: 380px) {
+  .navbar-title {
+    font-size: 13px;
+  }
+
+  .navbar-subtitle {
+    display: none;
+  }
+
+  .logout-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .card-titulo {
+    font-size: 11px;
+  }
+
+  .card-valor {
+    font-size: 24px;
+  }
+}

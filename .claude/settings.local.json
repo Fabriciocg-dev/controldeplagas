@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(node -e \"const p=require\\('./package.json'\\);console.log\\('sharp in deps:', !!\\(p.dependencies&&p.dependencies.sharp\\)||!!\\(p.devDependencies&&p.devDependencies.sharp\\)\\)\")",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(npm run *)",
+      "PowerShell(Get-CimInstance Win32_Process -Filter \"Name='node.exe'\" | Select-Object ProcessId, @{n='Cmd';e={$_.CommandLine}} | Format-Table -AutoSize -Wrap)",
+      "Bash(node -e \"try{require.resolve\\('sharp'\\);console.log\\('sharp ok'\\)}catch\\(e\\){console.log\\('need install'\\)}\")",
+      "Bash(node -e \"const sharp=require\\('sharp'\\);sharp\\('src/assets/HOSPITAL-original.jpg.bak'\\).metadata\\(\\).then\\(m=>console.log\\('orig',m.width+'x'+m.height\\)\\)\")",
+      "PowerShell(npm run build 2>&1)",
+      "Bash(node -e \"const l=require\\('lucide-react'\\); const names=Object.keys\\(l\\); const want=['Rat','Bug','Bird','Cockroach','SprayCan','Shield','ShieldCheck','Droplets','Droplet','Feather','Skull','Biohazard','ChevronRight','ArrowRight','Wind','Sparkles']; want.forEach\\(w=>console.log\\(w, names.includes\\(w\\)\\)\\)\")",
+      "Bash(node -e \"const l=require\\('lucide-react'\\); const names=Object.keys\\(l\\); const want=['BugOff','BugPlay','Worm','Snail','Fish','Ant','Spline','Activity','Crosshair','Target','Spray','SprayCan','FlaskConical','Beaker','TestTube','Syringe','ShieldCheck']; want.forEach\\(w=>console.log\\(w, names.includes\\(w\\)\\)\\)\")"
+    ]
+  }
+}
