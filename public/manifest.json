@@ -1,0 +1,16 @@
+{
+  "name": "Control de Plagas HMS",
+  "short_name": "Plagas HMS",
+  "description": "Sistema de Control de Plagas — Hospital Militar de Santiago",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#142d63",
+  "theme_color": "#142d63",
+  "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
+  ]
+}
