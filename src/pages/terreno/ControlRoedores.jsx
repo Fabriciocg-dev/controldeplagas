@@ -1,5 +1,5 @@
 // Formulario de Control de Roedores según Anexo N°1 y N°2 del protocolo DPRHA/07
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,15 +17,11 @@ function ControlRoedores() {
   const [form, setForm] = useState({
     fecha: new Date().toLocaleDateString('en-CA'),
     numero_trampa: '',
-    sector_id: '',
     estado_cebo: '',
     recambio_cebo: false,
     nombre_producto: '',
     observaciones: '',
   })
-
-  // Estado para la lista de sectores del hospital
-  const [sectores, setSectores] = useState([])
 
   // Estado para mensajes de éxito o error
   const [mensaje, setMensaje] = useState({ tipo: '', texto: '' })
@@ -34,16 +30,6 @@ function ControlRoedores() {
   const [guardando, setGuardando] = useState(false)
 
   const navigate = useNavigate()
-
-  // Al cargar el formulario traemos los sectores desde Supabase
-  useEffect(() => {
-    cargarSectores()
-  }, [])
-
-  const cargarSectores = async () => {
-    const { data } = await supabase.from('sectores').select('id, nombre').order('nombre')
-    setSectores(data || [])
-  }
 
   // Actualizamos el campo correspondiente cuando el usuario escribe o selecciona
   const handleChange = (e) => {
@@ -63,7 +49,6 @@ function ControlRoedores() {
     const { error } = await supabase.from('control_roedores').insert({
       fecha: form.fecha,
       numero_trampa: form.numero_trampa,
-      sector_id: form.sector_id || null,
       estado_cebo: form.estado_cebo,
       recambio_cebo: form.recambio_cebo,
       nombre_producto: form.recambio_cebo ? form.nombre_producto : null,
@@ -80,7 +65,6 @@ function ControlRoedores() {
       setForm({
         fecha: new Date().toLocaleDateString('en-CA'),
         numero_trampa: '',
-        sector_id: '',
         estado_cebo: '',
         recambio_cebo: false,
         nombre_producto: '',
@@ -135,22 +119,6 @@ function ControlRoedores() {
               onChange={handleChange}
               required
             />
-          </div>
-
-          {/* Sector */}
-          <div style={styles.campo}>
-            <label style={styles.label}>Sector / Dependencia</label>
-            <select
-              style={styles.input}
-              name="sector_id"
-              value={form.sector_id}
-              onChange={handleChange}
-            >
-              <option value="">Seleccione un sector</option>
-              {sectores.map((s) => (
-                <option key={s.id} value={s.id}>{s.nombre}</option>
-              ))}
-            </select>
           </div>
 
           {/* Estado del cebo — opciones del protocolo oficial */}
