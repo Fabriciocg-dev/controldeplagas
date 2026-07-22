@@ -20,8 +20,8 @@ import ControlPalomas from './pages/terreno/ControlPalomas'
 import ControlBaratas from './pages/terreno/ControlBaratas'
 import ControlMoscas from './pages/terreno/ControlMoscas'
 
-// Importamos el componente que protege las rutas
-import RutaProtegida from './components/RutaProtegida'
+// Importamos el componente que protege las rutas y la lista de roles de supervisor
+import RutaProtegida, { ROLES_SUPERVISOR } from './components/RutaProtegida'
 
 function App() {
   return (
@@ -33,15 +33,15 @@ function App() {
         {/* Ruta del login, publica */}
         <Route path="/login" element={<Login />} />
 
-        {/* Rutas del supervisor, protegidas */}
-        <Route path="/supervisor/inicio" element={<RutaProtegida><InicioSupervisor /></RutaProtegida>} />
-        <Route path="/supervisor/dashboard" element={<RutaProtegida><Dashboard /></RutaProtegida>} />
-        <Route path="/supervisor/roedores" element={<RutaProtegida><DetalleRoedores /></RutaProtegida>} />
-        <Route path="/supervisor/desinfecciones" element={<RutaProtegida><DetalleDesinfecciones /></RutaProtegida>} />
-        <Route path="/supervisor/palomas" element={<RutaProtegida><DetallePalomas /></RutaProtegida>} />
-        <Route path="/supervisor/baratas" element={<RutaProtegida><DetalleBaratas /></RutaProtegida>} />
-        <Route path="/supervisor/moscas" element={<RutaProtegida><DetalleMoscas /></RutaProtegida>} />
-        <Route path="/supervisor/graficos" element={<RutaProtegida><Graficos /></RutaProtegida>} />
+        {/* Rutas del supervisor, protegidas y restringidas a roles de supervisor */}
+        <Route path="/supervisor/inicio" element={<RutaProtegida roles={ROLES_SUPERVISOR}><InicioSupervisor /></RutaProtegida>} />
+        <Route path="/supervisor/dashboard" element={<RutaProtegida roles={ROLES_SUPERVISOR}><Dashboard /></RutaProtegida>} />
+        <Route path="/supervisor/roedores" element={<RutaProtegida roles={ROLES_SUPERVISOR}><DetalleRoedores /></RutaProtegida>} />
+        <Route path="/supervisor/desinfecciones" element={<RutaProtegida roles={ROLES_SUPERVISOR}><DetalleDesinfecciones /></RutaProtegida>} />
+        <Route path="/supervisor/palomas" element={<RutaProtegida roles={ROLES_SUPERVISOR}><DetallePalomas /></RutaProtegida>} />
+        <Route path="/supervisor/baratas" element={<RutaProtegida roles={ROLES_SUPERVISOR}><DetalleBaratas /></RutaProtegida>} />
+        <Route path="/supervisor/moscas" element={<RutaProtegida roles={ROLES_SUPERVISOR}><DetalleMoscas /></RutaProtegida>} />
+        <Route path="/supervisor/graficos" element={<RutaProtegida roles={ROLES_SUPERVISOR}><Graficos /></RutaProtegida>} />
 
         {/* Rutas del personal en terreno, protegidas */}
         <Route path="/terreno/inicio" element={<RutaProtegida><Inicio /></RutaProtegida>} />
