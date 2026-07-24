@@ -4,8 +4,8 @@ import { useState } from 'react'
 // Importamos el cliente de Supabase
 import { supabase } from '../lib/supabase'
 
-// Importamos useNavigate para redirigir según el rol
-import { useNavigate } from 'react-router-dom'
+// Importamos useNavigate para redirigir según el rol y useLocation para leer mensajes
+import { useNavigate, useLocation } from 'react-router-dom'
 
 // Imagen de fondo del hospital
 import hospitalBg from '../assets/HOSPITAL.jpg'
@@ -17,6 +17,10 @@ function Login() {
   const [cargando, setCargando] = useState(false)
 
   const navigate = useNavigate()
+  const location = useLocation()
+
+  // Mensaje de éxito si el usuario acaba de crear su contraseña
+  const passwordCreada = location.state?.passwordCreada
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -62,6 +66,12 @@ function Login() {
       <div style={styles.card}>
         <h1 style={styles.title}>Control de Plagas HMS</h1>
         <p style={styles.subtitle}>Hospital Militar de Santiago</p>
+
+        {passwordCreada && (
+          <p style={styles.exito}>
+            Contraseña creada correctamente. Ya podés ingresar.
+          </p>
+        )}
 
         <form onSubmit={handleLogin} style={styles.form}>
           <input
@@ -145,6 +155,15 @@ const styles = {
   error: {
     color: '#dc2626',
     fontSize: '13px',
+  },
+  exito: {
+    color: '#155724',
+    backgroundColor: '#d4edda',
+    border: '1px solid #c3e6cb',
+    borderRadius: '8px',
+    padding: '10px',
+    fontSize: '13px',
+    marginBottom: '16px',
   },
 }
 

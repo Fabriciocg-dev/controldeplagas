@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 // Importamos las páginas
 import Login from './pages/Login'
+import CrearPassword from './pages/CrearPassword'
 import InicioSupervisor from './pages/supervisor/Inicio'
 import Dashboard from './pages/supervisor/dashboard'
 import DetalleRoedores from './pages/supervisor/DetalleRoedores'
@@ -32,6 +33,9 @@ function App() {
 
         {/* Ruta del login, publica */}
         <Route path="/login" element={<Login />} />
+
+        {/* Ruta para que un usuario invitado cree su contraseña, publica */}
+        <Route path="/crear-password" element={<CrearPassword />} />
 
         {/* Rutas del supervisor, protegidas y restringidas a roles de supervisor */}
         <Route path="/supervisor/inicio" element={<RutaProtegida roles={ROLES_SUPERVISOR}><InicioSupervisor /></RutaProtegida>} />
